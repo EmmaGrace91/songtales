@@ -1,0 +1,54 @@
+---
+import { IMAGES, SITE } from '../site';
+
+interface Props {
+  /** Rendered pixel size of the circular emblem. */
+  size?: number;
+  /** Tone of the wordmark beside the emblem. */
+  tone?: 'ink' | 'cream';
+}
+
+const { size = 38, tone = 'ink' } = Astro.props;
+---
+
+<span class:list={['logo', `logo-${tone}`]}>
+  <img
+    class="logo-mark"
+    src={IMAGES.logo}
+    alt=""
+    width={size}
+    height={size}
+    style={`--logo-size:${size}px`}
+  />
+  <span class="logo-word">{SITE.name}</span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .logo-mark {
+    width: var(--logo-size);
+    height: var(--logo-size);
+    border-radius: 50%;
+    flex: none;
+  }
+
+  .logo-word {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  .logo-ink .logo-word {
+    color: var(--ink);
+  }
+
+  .logo-cream .logo-word {
+    color: #fffdf9;
+  }
+</style>

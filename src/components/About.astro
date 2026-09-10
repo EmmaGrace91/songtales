@@ -1,0 +1,92 @@
+---
+import { ABOUT_PARAGRAPHS } from '../content';
+import { IMAGES, IMAGE_ALT } from '../site';
+---
+
+<section class="section" id="about" aria-labelledby="about-heading">
+  <div class="shell about-inner">
+    <div class="about-photos">
+      <figure class="figure about-photo about-photo-craft">
+        <img
+          src={IMAGES.aboutCraft}
+          alt={IMAGE_ALT.aboutCraft}
+          width="800"
+          height="533"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <figure class="figure about-photo about-photo-life">
+        <img
+          src={IMAGES.aboutLife}
+          alt={IMAGE_ALT.aboutLife}
+          width="800"
+          height="1000"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+
+    <div class="about-copy">
+      <p class="eyebrow">About</p>
+      <h2 class="section-title" id="about-heading">Written by me, from where I live.</h2>
+      <div class="prose">
+        {ABOUT_PARAGRAPHS.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .about-photos {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .about-photo img {
+    width: 100%;
+    /* Heads stay in frame on every crop. */
+    object-position: top center;
+  }
+
+  .about-photo-craft img {
+    aspect-ratio: 3 / 2;
+  }
+
+  .about-photo-life img {
+    aspect-ratio: 4 / 5;
+  }
+
+  @media (max-width: 860px) {
+    .about-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .about-copy {
+      order: -1;
+    }
+
+    .about-photos {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .about-photo-life img {
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .about-photos {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

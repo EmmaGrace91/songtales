@@ -1,0 +1,104 @@
+---
+import { IMAGES, IMAGE_ALT, SITE, TALLY_FORM_URL } from '../site';
+---
+
+<section class="hero" id="top">
+  <div class="shell hero-inner">
+    <div class="hero-copy">
+      <h1 class="hero-title">{SITE.name}</h1>
+      <p class="hero-tagline">{SITE.tagline}</p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={TALLY_FORM_URL} target="_blank" rel="noopener">
+          Request a song
+        </a>
+        <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+      </div>
+
+      <p class="hero-never-ai">{SITE.neverAi}</p>
+    </div>
+
+    <figure class="hero-figure">
+      <img
+        src={IMAGES.hero}
+        alt={IMAGE_ALT.hero}
+        width="800"
+        height="1000"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 4.75rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1.0625rem, 1.6vw, 1.2rem);
+    color: var(--muted);
+    max-width: 30rem;
+    margin-bottom: 1.9rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .hero-never-ai {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--wine);
+    margin: 0;
+  }
+
+  .hero-figure {
+    margin: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--card);
+    box-shadow: var(--shadow);
+  }
+
+  .hero-figure img {
+    width: 100%;
+    /* Cropped from the top so the head is never cut off. */
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  @media (max-width: 860px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-figure {
+      order: -1;
+    }
+
+    .hero-figure img {
+      aspect-ratio: 5 / 4;
+    }
+  }
+</style>

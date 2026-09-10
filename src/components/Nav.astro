@@ -1,0 +1,72 @@
+---
+import Logo from './Logo.astro';
+import { NAV_LINKS, TALLY_FORM_URL } from '../site';
+---
+
+<header class="nav">
+  <div class="shell nav-inner">
+    <a class="nav-home" href="#top" aria-label="Songtales — back to top">
+      <Logo size={38} />
+    </a>
+
+    <nav class="nav-links" aria-label="Sections">
+      {NAV_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <a class="btn btn-primary btn-sm nav-cta" href={TALLY_FORM_URL} target="_blank" rel="noopener">
+      Request a song
+    </a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 243, 238, 0.9);
+    backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 4.25rem;
+  }
+
+  .nav-home {
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.6rem;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    color: var(--wine);
+  }
+
+  @media (max-width: 780px) {
+    .nav-links {
+      display: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .nav-cta {
+      padding-inline: 0.9rem;
+      font-size: 0.875rem;
+    }
+  }
+</style>
