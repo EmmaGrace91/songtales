@@ -78,14 +78,22 @@ const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
 
           {
             CONTRIBUTE_URL ? (
-              <a
-                class="btn btn-primary ty-cta"
-                href={CONTRIBUTE_URL}
-                target="_blank"
-                rel="noopener"
-              >
-                Contribute
-              </a>
+              <>
+                <a
+                  class="btn btn-primary ty-cta"
+                  href={CONTRIBUTE_URL}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Contribute
+                </a>
+                <p class="ty-invoice-note">
+                  You'll enter the amount yourself on the next screen — the total
+                  above is only a guide. A tax invoice follows either way, and
+                  there's no rush: you're welcome to wait until we've talked the
+                  song through.
+                </p>
+              </>
             ) : (
               <p class="ty-invoice-note">
                 No need to pay anything now — I'll send you an invoice once we've
@@ -265,6 +273,10 @@ const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
 
   .ty-cta {
     margin-top: 1.5rem;
+  }
+
+  .ty-cta + .ty-invoice-note {
+    margin-top: 1rem;
   }
 
   .ty-back {

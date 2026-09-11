@@ -35,17 +35,40 @@ Almost everything you'd want to change lives in two files.
 
 - **`TALLY_FORM_URL`** — the request form every "Request a song" button points to.
   Change it here once and all four CTAs follow.
-- **`DONATE_URL`** — currently `null`, so the CTA band shows a
-  "Donate link coming soon" note. Set it to a URL and a Donate button appears
-  automatically.
+- **`CONTRIBUTE_URL`** — currently `null`, which hides the Contribute button
+  entirely. Set it to a Square payment link and the button appears on both the
+  CTA band and `/thank-you`.
+- **`YOUTUBE_URL`** — where "See my work" points, from the nav and About.
 - **`IMAGES`** — the path to each photo (see below).
 - **`SITE`** — name, tagline, the "Never AI" line, footer line, meta description.
 - **`NAV_LINKS`** — the section links in the nav bar.
 
-### `src/content.ts` — the words
+### `src/content.ts` — the words and the prices
 
 All the body copy: the idea, the occasion list, the three steps, the About
-paragraph, and the donation tiers and notes.
+paragraph, and the contribution tiers and notes.
+
+`SUPPORT_TIERS` holds the prices as **numbers**, and both the landing page and
+the `/thank-you` calculator derive their figures from it — change an amount once
+and both follow. Amounts are GST-inclusive, as consumer-facing prices must be
+under s48 of the Australian Consumer Law; GST is computed as 1/11th.
+
+### `/thank-you` — where the request form lands people
+
+Set the request form's "redirect on completion" to
+`https://songtales.emmastephensonmusic.com/thank-you`. The page itemises the
+suggested contribution and totals it, and pre-ticks extras from the query
+string. Two formats are accepted:
+
+```
+/thank-you?chord=1&video=1
+/thank-you?extras=chord,video
+```
+
+Valid ids are `chord`, `sheet`, `video`, `band` (matching `SUPPORT_TIERS`).
+Truthy values may be `1`, `true`, `yes`, `y`, `on` or `checked`. With no query
+string at all the page still works — every extra simply starts unticked, and the
+visitor ticks their own.
 
 ### The photos
 
