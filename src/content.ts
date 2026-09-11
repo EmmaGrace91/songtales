@@ -49,26 +49,36 @@ export const SUPPORT_INTRO = 'No fixed price — contributions welcome. Suggeste
 
 export const SUPPORT_TIERS = [
   {
+    id: 'base',
     label: 'Basic dedication',
     detail: 'Piano & voice WAV + lyric sheet',
-    amount: 'from $200',
+    amount: 200,
     base: true,
   },
-  { label: 'Chord chart with lyrics', detail: null, amount: '+$50', base: false },
-  { label: 'Sheet music', detail: null, amount: '+$100', base: false },
-  { label: 'Lyric video', detail: null, amount: '+$200', base: false },
+  { id: 'chord', label: 'Chord chart with lyrics', detail: null, amount: 50, base: false },
+  { id: 'sheet', label: 'Sheet music', detail: null, amount: 100, base: false },
+  { id: 'video', label: 'Lyric video', detail: null, amount: 200, base: false },
   {
+    id: 'band',
     label: 'Extra instrumentation and/or different vocalist',
     detail: null,
-    amount: '+$500',
+    amount: 500,
     base: false,
   },
 ] as const;
 
-/**
- * Consumer-facing prices must be shown GST-inclusive under s48 of the Australian
- * Consumer Law, and this has to sit close to the amounts themselves.
- */
+export type SupportTier = (typeof SUPPORT_TIERS)[number];
+
+/** The base tier is a floor, not a fixed price; the extras are add-ons. */
+export const formatTierAmount = (tier: SupportTier): string =>
+  tier.base ? `from $${tier.amount}` : `+$${tier.amount}`;
+
+/** GST is 1/11th of a GST-inclusive total. */
+export const gstOf = (total: number): number => total / 11;
+
+export const formatMoney = (amount: number): string =>
+  `$${amount.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
 export const SUPPORT_GST_NOTE =
   'All amounts include GST. You’ll receive a tax invoice showing the GST.';
 

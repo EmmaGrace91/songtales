@@ -1,0 +1,281 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SUPPORT_TIERS, SUPPORT_GST_NOTE, formatMoney, gstOf } from '../content';
+import { CONTRIBUTE_URL, SITE } from '../site';
+
+const base = SUPPORT_TIERS.find((tier) => tier.base)!;
+const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
+---
+
+<Layout
+  title={`Thank you — ${SITE.name}`}
+  description="Your Songtales request is in. Here's what happens next, and a suggested contribution."
+>
+  <Nav />
+
+  <main id="main">
+    <section class="section">
+      <div class="shell ty-inner">
+        <div class="ty-copy">
+          <p class="eyebrow">Request received</p>
+          <h1 class="ty-title">Thank you — it's landed.</h1>
+          <div class="prose">
+            <p>
+              I read every request myself. I'll be in touch to talk through the
+              story, the timing, and anything you'd like the song to carry.
+            </p>
+            <p>
+              There's nothing more you need to do right now. If you'd like to
+              contribute, the suggested amount for what you asked for is below —
+              and it's genuinely a suggestion.
+            </p>
+          </div>
+        </div>
+
+        <div class="card ty-card">
+          <h2 class="ty-card-title">Your suggested contribution</h2>
+          <p class="ty-card-sub">
+            Tick or untick to match what you asked for — nothing here is locked in.
+          </p>
+
+          <ul class="calc" id="calc">
+            <li class="calc-row calc-base">
+              <span class="calc-label">
+                {base.label}
+                <span class="calc-detail">{base.detail}</span>
+              </span>
+              <span class="calc-amount">{formatMoney(base.amount)}</span>
+            </li>
+
+            {
+              extras.map((tier) => (
+                <li class="calc-row">
+                  <label class="calc-label" for={`extra-${tier.id}`}>
+                    <input
+                      type="checkbox"
+                      id={`extra-${tier.id}`}
+                      data-extra={tier.id}
+                      data-amount={tier.amount}
+                    />
+                    <span>{tier.label}</span>
+                  </label>
+                  <span class="calc-amount">+{formatMoney(tier.amount)}</span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <div class="calc-total">
+            <span>Suggested total</span>
+            <strong id="calc-total-value">from {formatMoney(base.amount)}</strong>
+          </div>
+          <p class="calc-gst">
+            {SUPPORT_GST_NOTE} Currently
+            <span id="calc-gst-value">{formatMoney(gstOf(base.amount))}</span>.
+          </p>
+
+          {
+            CONTRIBUTE_URL ? (
+              <a
+                class="btn btn-primary ty-cta"
+                href={CONTRIBUTE_URL}
+                target="_blank"
+                rel="noopener"
+              >
+                Contribute
+              </a>
+            ) : (
+              <p class="ty-invoice-note">
+                No need to pay anything now — I'll send you an invoice once we've
+                settled what the song involves.
+              </p>
+            )
+          }
+
+          <a class="ty-back" href="/">Back to Songtales</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  // The extras can arrive from the request form as either `?chord=1&sheet=1`
+  // or a single `?extras=chord,sheet`. Accept both, plus the various truthy
+  // spellings a form builder might send.
+  const TRUTHY = new Set(['1', 'true', 'yes', 'y', 'on', 'checked']);
+
+  const boxes = Array.from(
+    document.querySelectorAll<HTMLInputElement>('#calc input[data-extra]')
+  );
+  const totalEl = document.getElementById('calc-total-value');
+  const gstEl = document.getElementById('calc-gst-value');
+  const baseAmount = 200;
+
+  const money = (amount: number) =>
+    `$${amount.toLocaleString('en-AU', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+
+  function prefillFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+
+    const listed = new Set(
+      (params.get('extras') ?? '')
+        .split(',')
+        .map((value) => value.trim().toLowerCase())
+        .filter(Boolean)
+    );
+
+    for (const box of boxes) {
+      const id = box.dataset.extra!;
+      const direct = params.get(id);
+      if (listed.has(id) || (direct !== null && TRUTHY.has(direct.toLowerCase()))) {
+        box.checked = true;
+      }
+    }
+  }
+
+  function recalculate() {
+    const total = boxes.reduce(
+      (sum, box) => (box.checked ? sum + Number(box.dataset.amount) : sum),
+      baseAmount
+    );
+    if (totalEl) totalEl.textContent = `from ${money(total)}`;
+    // GST is 1/11th of a GST-inclusive total.
+    if (gstEl) gstEl.textContent = money(total / 11);
+  }
+
+  prefillFromUrl();
+  recalculate();
+  for (const box of boxes) box.addEventListener('change', recalculate);
+</script>
+
+<style>
+  .ty-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  .ty-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .ty-card {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .ty-card-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .ty-card-sub {
+    color: var(--muted);
+    font-size: 0.9063rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .calc {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .calc-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .calc-label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    cursor: pointer;
+  }
+
+  .calc-base .calc-label {
+    flex-direction: column;
+    gap: 0.15rem;
+    cursor: default;
+    font-weight: 600;
+  }
+
+  .calc-detail {
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .calc-label input {
+    accent-color: var(--wine);
+    width: 1.05rem;
+    height: 1.05rem;
+    flex: none;
+    cursor: pointer;
+  }
+
+  .calc-amount {
+    font-family: var(--serif);
+    color: var(--wine);
+    white-space: nowrap;
+  }
+
+  .calc-total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding-top: 1.1rem;
+  }
+
+  .calc-total strong {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--wine);
+  }
+
+  .calc-gst {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin: 0.4rem 0 0;
+  }
+
+  .ty-invoice-note {
+    margin: 1.4rem 0 0;
+    padding: 1rem 1.15rem;
+    background: rgba(139, 58, 58, 0.05);
+    border-radius: var(--radius);
+    color: var(--muted);
+    font-size: 0.9063rem;
+  }
+
+  .ty-cta {
+    margin-top: 1.5rem;
+  }
+
+  .ty-back {
+    display: inline-block;
+    margin-top: 1.4rem;
+    font-size: 0.9063rem;
+  }
+
+  @media (max-width: 860px) {
+    .ty-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

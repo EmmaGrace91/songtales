@@ -5,6 +5,9 @@
 
 export const TALLY_FORM_URL = 'https://tally.so/r/rjejao';
 
+/** Where "See my work" points. */
+export const YOUTUBE_URL = 'https://www.youtube.com/@egracestephenson';
+
 /**
  * Where the "Contribute" button should point. While this is null the button is
  * hidden entirely — set it to a payment or contribution link to show it.
@@ -26,6 +29,7 @@ export const NAV_LINKS = [
   { href: '#the-idea', label: 'The idea' },
   { href: '#how-it-works', label: 'How it works' },
   { href: '#about', label: 'About' },
+  { href: YOUTUBE_URL, label: 'See my work', external: true },
   { href: '#support', label: 'Support the work' },
 ] as const;
 

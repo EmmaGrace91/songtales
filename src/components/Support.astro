@@ -1,5 +1,11 @@
 ---
-import { SUPPORT_GST_NOTE, SUPPORT_INTRO, SUPPORT_NOTES, SUPPORT_TIERS } from '../content';
+import {
+  SUPPORT_GST_NOTE,
+  SUPPORT_INTRO,
+  SUPPORT_NOTES,
+  SUPPORT_TIERS,
+  formatTierAmount,
+} from '../content';
 import { TALLY_FORM_URL } from '../site';
 ---
 
@@ -20,7 +26,7 @@ import { TALLY_FORM_URL } from '../site';
                 <span class="tier-label">{tier.label}</span>
                 {tier.detail && <span class="tier-detail">{tier.detail}</span>}
               </dt>
-              <dd>{tier.amount}</dd>
+              <dd>{formatTierAmount(tier)}</dd>
             </div>
           ))
         }

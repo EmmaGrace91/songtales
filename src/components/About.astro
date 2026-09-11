@@ -1,6 +1,6 @@
 ---
 import { ABOUT_PARAGRAPHS } from '../content';
-import { IMAGES, IMAGE_ALT } from '../site';
+import { IMAGES, IMAGE_ALT, YOUTUBE_URL } from '../site';
 ---
 
 <section class="section" id="about" aria-labelledby="about-heading">
@@ -34,11 +34,27 @@ import { IMAGES, IMAGE_ALT } from '../site';
       <div class="prose">
         {ABOUT_PARAGRAPHS.map((paragraph) => <p>{paragraph}</p>)}
       </div>
+
+      <a class="about-link" href={YOUTUBE_URL} target="_blank" rel="noopener">
+        See my work on YouTube
+        <span aria-hidden="true">&rarr;</span>
+      </a>
     </div>
   </div>
 </section>
 
 <style>
+  .about-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.4rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.1rem;
+  }
+
   .about-inner {
     display: grid;
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -67,7 +83,18 @@ import { IMAGES, IMAGE_ALT } from '../site';
   }
 
   @media (max-width: 860px) {
-    .about-inner {
+    .about-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.4rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.1rem;
+  }
+
+  .about-inner {
       grid-template-columns: 1fr;
     }
 

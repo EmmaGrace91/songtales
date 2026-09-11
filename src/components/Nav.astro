@@ -10,7 +10,17 @@ import { NAV_LINKS, TALLY_FORM_URL } from '../site';
     </a>
 
     <nav class="nav-links" aria-label="Sections">
-      {NAV_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+      {
+        NAV_LINKS.map((link) =>
+          'external' in link && link.external ? (
+            <a href={link.href} target="_blank" rel="noopener">
+              {link.label}
+            </a>
+          ) : (
+            <a href={link.href}>{link.label}</a>
+          )
+        )
+      }
     </nav>
 
     <a class="btn btn-primary btn-sm nav-cta" href={TALLY_FORM_URL} target="_blank" rel="noopener">
