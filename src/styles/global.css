@@ -64,6 +64,9 @@ p:last-child {
 img {
   display: block;
   max-width: 100%;
+  /* The intrinsic width/height attributes would otherwise pin the used height
+     and suppress every aspect-ratio below. */
+  height: auto;
 }
 
 a {
@@ -211,7 +214,6 @@ a:hover {
 
 .figure img {
   width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 

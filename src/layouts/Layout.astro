@@ -1,5 +1,5 @@
 ---
-import { SITE } from '../site';
+import { IMAGES, SITE } from '../site';
 import '../styles/global.css';
 
 interface Props {
@@ -19,7 +19,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/images/logo.svg" type="image/svg+xml" />
+    <link rel="icon" href={IMAGES.logo} type="image/jpeg" />
     <meta name="theme-color" content="#f7f3ee" />
 
     <meta property="og:type" content="website" />

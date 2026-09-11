@@ -32,17 +32,17 @@ export const NAV_LINKS = [
  */
 export const IMAGES = {
   /** Lace dress / flowers portrait. Cropped `top center` so the head is never cut. */
-  hero: '/images/hero-portrait.svg',
+  hero: '/images/hero-portrait.jpg',
   /** Emma at the piano, navy studio. */
-  aboutCraft: '/images/about-piano.svg',
+  aboutCraft: '/images/about-piano.jpg',
   /** Emma with toddler at the piano. */
-  aboutLife: '/images/about-family.svg',
+  aboutLife: '/images/about-family.jpg',
   /** Circular piano + quill emblem. */
-  logo: '/images/logo.svg',
+  logo: '/images/logo.jpg',
 } as const;
 
 export const IMAGE_ALT = {
   hero: 'Emma standing among flowering greenery in a white lace dress, holding a sprig of blossom.',
   aboutCraft: 'Emma seated at an upright piano in a navy-toned studio.',
-  aboutLife: 'Emma sitting on a piano stool beside her toddler, who is reaching for the keys.',
+  aboutLife: 'Emma sitting on top of an upright piano with her feet on the keys, while her toddler kneels on the stool below, reaching for the keyboard.',
 } as const;

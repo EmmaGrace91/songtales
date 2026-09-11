@@ -47,25 +47,28 @@ Almost everything you'd want to change lives in two files.
 All the body copy: the idea, the occasion list, the three steps, the About
 paragraph, and the donation tiers and notes.
 
-### Swapping in the real photos
+### The photos
 
-The site currently ships **placeholder SVGs** so the layout is correct before the
-real images land. To swap them in:
+The real photos live in `public/images/` and are wired up in `IMAGES` in
+`src/site.ts`:
 
-1. Drop the real files into `public/images/`.
-2. Update the matching path in `IMAGES` in `src/site.ts` (change the extension
-   from `.svg` to `.jpg`).
+| `IMAGES` key | File                             | Frame                                    |
+| ------------ | -------------------------------- | ---------------------------------------- |
+| `hero`       | `hero-portrait.jpg` (800×1200)   | 4:5 on desktop, 5:4 on mobile            |
+| `aboutCraft` | `about-piano.jpg` (1200×800)     | 3:2 — matches the file, so it isn't cropped |
+| `aboutLife`  | `about-family.jpg` (800×1200)    | 4:5 on desktop, 3:4 on narrow screens    |
+| `logo`       | `logo.jpg` (720×720)             | square crop of the emblem, masked to a circle |
 
-| Purpose               | `IMAGES` key  | Suggested filename          | Notes                                          |
-| --------------------- | ------------- | --------------------------- | ---------------------------------------------- |
-| Hero portrait         | `hero`        | `hero-portrait.jpg`         | Lace dress / flowers. Cropped `top center`.     |
-| About — craft         | `aboutCraft`  | `about-piano.jpg`           | Emma at the piano, navy studio.                 |
-| About — life          | `aboutLife`   | `about-family.jpg`          | Emma with toddler at the piano.                 |
-| Logo emblem           | `logo`        | `logo.svg`                  | Circular piano + quill. Used in nav and footer. |
+Every photo uses `object-fit: cover` with `object-position: top center`, so the
+crop always takes from the bottom and heads stay in frame at any width. The `img`
+elements carry their real intrinsic `width`/`height` so nothing shifts while
+loading — **if you swap a photo for one with different dimensions, update those
+attributes too**, or the layout will jump. Update `IMAGE_ALT` in `src/site.ts` to
+match whatever you drop in.
 
-Every photo uses `object-fit: cover` with `object-position: top center`, so heads
-stay in frame at any screen width. Update the alt text in `IMAGE_ALT` in
-`src/site.ts` to match whatever you drop in.
+`assets-source/` holds original files that aren't used on the site (the
+uncropped wide logo, alternate studio shots). It's gitignored, so nothing in
+there is published.
 
 ---
 

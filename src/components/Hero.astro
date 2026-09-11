@@ -23,7 +23,7 @@ import { IMAGES, IMAGE_ALT, SITE, TALLY_FORM_URL } from '../site';
         src={IMAGES.hero}
         alt={IMAGE_ALT.hero}
         width="800"
-        height="1000"
+        height="1200"
         fetchpriority="high"
         decoding="async"
       />
@@ -82,6 +82,7 @@ import { IMAGES, IMAGE_ALT, SITE, TALLY_FORM_URL } from '../site';
 
   .hero-figure img {
     width: 100%;
+    height: auto;
     /* Cropped from the top so the head is never cut off. */
     aspect-ratio: 4 / 5;
     object-fit: cover;
