@@ -55,19 +55,52 @@ export const SUPPORT_TIERS = [
     amount: 200,
     base: true,
   },
-  { id: 'chord', label: 'Chord chart with lyrics', detail: null, amount: 50, base: false },
-  { id: 'sheet', label: 'Sheet music', detail: null, amount: 100, base: false },
-  { id: 'video', label: 'Lyric video', detail: null, amount: 200, base: false },
+  {
+    id: 'chord',
+    label: 'Chord chart with lyrics',
+    detail: null,
+    amount: 50,
+    base: false,
+    match: ['chord'],
+  },
+  {
+    id: 'sheet',
+    label: 'Sheet music',
+    detail: null,
+    amount: 100,
+    base: false,
+    // Not bare 'sheet': the base tier's own description says 'lyric sheet'.
+    match: ['sheet music'],
+  },
+  {
+    id: 'video',
+    label: 'Lyric video',
+    detail: null,
+    amount: 200,
+    base: false,
+    match: ['video'],
+  },
   {
     id: 'band',
     label: 'Extra instrumentation and/or different vocalist',
     detail: null,
     amount: 500,
     base: false,
+    match: ['instrumentation', 'vocalist'],
   },
 ] as const;
 
 export type SupportTier = (typeof SUPPORT_TIERS)[number];
+
+/**
+ * Keywords used to recognise an extra in whatever the request form sends back.
+ * Matching is done against the whole `extras` string rather than splitting it,
+ * so the form's separator — comma, comma-space, anything — never matters, and
+ * option labels can be reworded (or carry prices) without breaking the match.
+ * Keywords must stay mutually exclusive across tiers.
+ */
+export const tierMatchers = (tier: SupportTier): readonly string[] =>
+  'match' in tier ? tier.match : [tier.id];
 
 /** The base tier is a floor, not a fixed price; the extras are add-ons. */
 export const formatTierAmount = (tier: SupportTier): string =>

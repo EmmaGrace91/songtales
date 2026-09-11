@@ -2,7 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { SUPPORT_TIERS, SUPPORT_GST_NOTE, formatMoney, gstOf } from '../content';
+import {
+  SUPPORT_TIERS,
+  SUPPORT_GST_NOTE,
+  formatMoney,
+  gstOf,
+  tierMatchers,
+} from '../content';
 import { CONTRIBUTE_URL, SITE } from '../site';
 
 const base = SUPPORT_TIERS.find((tier) => tier.base)!;
@@ -58,6 +64,7 @@ const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
                       id={`extra-${tier.id}`}
                       data-extra={tier.id}
                       data-amount={tier.amount}
+                      data-match={tierMatchers(tier).join('|')}
                     />
                     <span>{tier.label}</span>
                   </label>
@@ -112,9 +119,13 @@ const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
 </Layout>
 
 <script>
-  // The extras can arrive from the request form as either `?chord=1&sheet=1`
-  // or a single `?extras=chord,sheet`. Accept both, plus the various truthy
-  // spellings a form builder might send.
+  // The request form can identify the extras two ways:
+  //   ?chord=1&video=1            explicit ids
+  //   ?extras=Chord chart with lyrics, Lyric video
+  // For the second, the form sends its own option labels joined by a separator
+  // it does not document. Rather than guess at that separator, match keywords
+  // against the whole decoded string — then commas, spaces and reworded labels
+  // are all irrelevant.
   const TRUTHY = new Set(['1', 'true', 'yes', 'y', 'on', 'checked']);
 
   const boxes = Array.from(
@@ -132,20 +143,21 @@ const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
 
   function prefillFromUrl() {
     const params = new URLSearchParams(window.location.search);
-
-    const listed = new Set(
-      (params.get('extras') ?? '')
-        .split(',')
-        .map((value) => value.trim().toLowerCase())
-        .filter(Boolean)
-    );
+    // URLSearchParams already decodes %20 and +; collapse whitespace so a
+    // label wrapped across lines still matches.
+    const haystack = (params.get('extras') ?? '')
+      .toLowerCase()
+      .replace(/\s+/g, ' ');
 
     for (const box of boxes) {
       const id = box.dataset.extra!;
       const direct = params.get(id);
-      if (listed.has(id) || (direct !== null && TRUTHY.has(direct.toLowerCase()))) {
-        box.checked = true;
-      }
+      const byId = direct !== null && TRUTHY.has(direct.trim().toLowerCase());
+      const byLabel = (box.dataset.match ?? '')
+        .split('|')
+        .some((keyword) => keyword && haystack.includes(keyword));
+
+      if (byId || byLabel) box.checked = true;
     }
   }
 

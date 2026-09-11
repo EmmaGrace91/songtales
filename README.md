@@ -66,9 +66,18 @@ string. Two formats are accepted:
 ```
 
 Valid ids are `chord`, `sheet`, `video`, `band` (matching `SUPPORT_TIERS`).
-Truthy values may be `1`, `true`, `yes`, `y`, `on` or `checked`. With no query
-string at all the page still works — every extra simply starts unticked, and the
-visitor ticks their own.
+Truthy values may be `1`, `true`, `yes`, `y`, `on` or `checked`.
+
+In practice Tally sends its own option labels, joined by a separator it doesn't
+document. So `extras` is matched by keyword against the **whole** decoded string
+rather than being split — which makes the separator irrelevant, survives labels
+being reworded or carrying prices, and copes with `+`, `%20` and newlines alike.
+The keywords live in `match` on each tier in `SUPPORT_TIERS` and must stay
+mutually exclusive (note `sheet music`, not bare `sheet`, since the base tier's
+description mentions a *lyric sheet*).
+
+With no query string at all the page still works — every extra starts unticked
+and the visitor ticks their own.
 
 ### The photos
 
