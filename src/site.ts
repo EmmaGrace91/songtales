@@ -10,7 +10,7 @@ export const DONATE_URL: string | null = null;
 
 export const SITE = {
   name: 'Songtales',
-  url: 'https://www.emmastephensonmusic.com',
+  url: 'https://songtales.emmastephensonmusic.com',
   tagline:
     'Personal songs, written in partnership with a real human songwriter. Create unforgettable dedications for the people you love.',
   neverAi: 'Handmade by a person. Never AI.',

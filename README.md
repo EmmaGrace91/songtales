@@ -2,7 +2,7 @@
 
 Static landing page for **Songtales** — personal songs written by Emma Stephenson.
 Built with [Astro](https://astro.build), deployed to GitHub Pages at
-**https://www.emmastephensonmusic.com**.
+**https://songtales.emmastephensonmusic.com**.
 
 > Handmade by a person. Never AI.
 
@@ -82,7 +82,7 @@ and publishes `dist/` to GitHub Pages. Nothing else to run.
 1. Go to **Settings → Pages** in this repo.
 2. Under **Build and deployment → Source**, choose **GitHub Actions**.
    (Not "Deploy from a branch" — this repo deploys via the workflow.)
-3. Under **Custom domain**, enter `www.emmastephensonmusic.com` and save.
+3. Under **Custom domain**, enter `songtales.emmastephensonmusic.com` and save.
    `public/CNAME` already contains this, so GitHub should pick it up on the first
    deploy; setting it in the UI as well is harmless and makes it explicit.
 4. Once the DNS check passes, tick **Enforce HTTPS**. This can take up to 24 hours
@@ -93,56 +93,43 @@ Watch the deploy under the **Actions** tab.
 
 ---
 
-## DNS setup for `www.emmastephensonmusic.com`
+## DNS setup for `songtales.emmastephensonmusic.com`
 
-Set these at whichever registrar or DNS host manages `emmastephensonmusic.com`.
+The site lives on its **own subdomain**, deliberately. `emmastephensonmusic.com`
+and `www.emmastephensonmusic.com` are left exactly as they are — they still point
+at the existing page that forwards to Linktree. Songtales sits alongside it, so
+it can be added to Linktree as its own link.
 
-### The record that matters — `www`
+Set this at Namecheap, which manages DNS for `emmastephensonmusic.com`.
 
-| Type    | Name (Host) | Value                    | TTL     |
-| ------- | ----------- | ------------------------ | ------- |
-| `CNAME` | `www`       | `emmagrace91.github.io.` | 1 hour  |
+| Type    | Host        | Value                    | TTL       |
+| ------- | ----------- | ------------------------ | --------- |
+| `CNAME` | `songtales` | `emmagrace91.github.io.` | Automatic |
 
-That's it for the live site. Note the target is the **GitHub Pages hostname**
-(`emmagrace91.github.io`) — not the repo name, and not an IP. Some DNS panels
-want a trailing dot, some add it for you; both forms are fine.
+Add it as a **new** record. Do not edit or delete the existing `www` CNAME or the
+`@` A records — those belong to the Linktree page.
 
-### Optional — send the bare domain to `www` too
-
-So that `emmastephensonmusic.com` (no `www`) doesn't 404, point the apex at
-GitHub's Pages IPs. You cannot use a `CNAME` at the apex, so use `A` records —
-plus `AAAA` for IPv6:
-
-| Type   | Name (Host) | Value                  |
-| ------ | ----------- | ---------------------- |
-| `A`    | `@`         | `185.199.108.153`      |
-| `A`    | `@`         | `185.199.109.153`      |
-| `A`    | `@`         | `185.199.110.153`      |
-| `A`    | `@`         | `185.199.111.153`      |
-| `AAAA` | `@`         | `2606:50c0:8000::153`  |
-| `AAAA` | `@`         | `2606:50c0:8001::153`  |
-| `AAAA` | `@`         | `2606:50c0:8002::153`  |
-| `AAAA` | `@`         | `2606:50c0:8003::153`  |
-
-With `www.emmastephensonmusic.com` set as the custom domain, GitHub redirects the
-apex to `www` automatically.
-
-If your DNS host supports `ALIAS`/`ANAME`/flattened-CNAME records at the apex
-(Cloudflare, DNSimple, Route 53 and others do), a single
-`ALIAS @ → emmagrace91.github.io` is tidier than the eight records above.
+Note the target is the GitHub Pages hostname (`emmagrace91.github.io`), not the
+repo name and not an IP address. Some DNS panels want a trailing dot; some add it
+for you. Both forms are fine.
 
 ### Checking it worked
 
 ```bash
-dig +short www.emmastephensonmusic.com
+dig +short songtales.emmastephensonmusic.com
 ```
 
-You should see `emmagrace91.github.io` followed by the four `185.199.*` IPs.
-DNS changes usually appear within an hour but can take up to 48.
+You should see `emmagrace91.github.io` followed by four `185.199.*` addresses.
+DNS changes usually appear within an hour, occasionally up to 48.
 
-**Cloudflare users:** set the `www` record to **DNS only** (grey cloud), not
-proxied, until GitHub has issued the certificate. Leaving the orange cloud on
-blocks GitHub's domain verification.
+**Cloudflare users:** not applicable here — this domain is on Namecheap's own
+nameservers (`dns1/dns2.registrar-servers.com`).
+
+### Why a subdomain rather than `www`
+
+A custom domain can only be claimed by one GitHub repository at a time, and
+`www.emmastephensonmusic.com` is already claimed by another repo. Using a
+distinct hostname sidesteps that entirely, and leaves the existing site alone.
 
 ---
 
