@@ -1,5 +1,5 @@
 ---
-import { DONATE_URL, SITE, TALLY_FORM_URL } from '../site';
+import { CONTRIBUTE_URL, SITE, TALLY_FORM_URL } from '../site';
 ---
 
 <section class="cta-band" aria-labelledby="cta-heading">
@@ -12,12 +12,10 @@ import { DONATE_URL, SITE, TALLY_FORM_URL } from '../site';
         Request a song
       </a>
       {
-        DONATE_URL ? (
-          <a class="btn btn-outline-on-wine" href={DONATE_URL} target="_blank" rel="noopener">
-            Donate
+        CONTRIBUTE_URL && (
+          <a class="btn btn-outline-on-wine" href={CONTRIBUTE_URL} target="_blank" rel="noopener">
+            Contribute
           </a>
-        ) : (
-          <span class="cta-donate-soon">Donate link coming soon</span>
         )
       }
     </div>
@@ -53,10 +51,5 @@ import { DONATE_URL, SITE, TALLY_FORM_URL } from '../site';
     gap: 0.75rem;
     justify-content: center;
     align-items: center;
-  }
-
-  .cta-donate-soon {
-    font-size: 0.875rem;
-    color: rgba(255, 253, 249, 0.7);
   }
 </style>

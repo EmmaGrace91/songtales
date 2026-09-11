@@ -5,8 +5,11 @@
 
 export const TALLY_FORM_URL = 'https://tally.so/r/rjejao';
 
-/** Where a "Donate" button should point once a donation link exists. */
-export const DONATE_URL: string | null = null;
+/**
+ * Where the "Contribute" button should point. While this is null the button is
+ * hidden entirely — set it to a payment or contribution link to show it.
+ */
+export const CONTRIBUTE_URL: string | null = null;
 
 export const SITE = {
   name: 'Songtales',
