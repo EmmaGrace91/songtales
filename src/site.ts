@@ -12,7 +12,8 @@ export const YOUTUBE_URL = 'https://www.youtube.com/@egracestephenson';
  * Where the "Pay" button should point. While this is null the button is hidden
  * entirely — set it to the Stripe payment link to show it.
  */
-export const PAYMENT_URL: string | null = null;
+export const PAYMENT_URL: string | null =
+  'https://buy.stripe.com/28EcN4a5y7G44XAdGJafS00';
 
 export const SITE = {
   name: 'Songtales',
