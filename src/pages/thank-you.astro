@@ -9,7 +9,7 @@ import {
   gstOf,
   tierMatchers,
 } from '../content';
-import { CONTRIBUTE_URL, SITE } from '../site';
+import { PAYMENT_URL, SITE } from '../site';
 
 const base = SUPPORT_TIERS.find((tier) => tier.base)!;
 const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
@@ -17,7 +17,7 @@ const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
 
 <Layout
   title={`Thank you — ${SITE.name}`}
-  description="Your Songtales request is in. Here's what happens next, and a suggested contribution."
+  description="Your Songtales request is in. Here's what happens next, and a guide price for what you asked for."
 >
   <Nav />
 
@@ -33,15 +33,15 @@ const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
               story, the timing, and anything you'd like the song to carry.
             </p>
             <p>
-              There's nothing more you need to do right now. If you'd like to
-              contribute, the suggested amount for what you asked for is below —
-              and it's genuinely a suggestion.
+              There's nothing more you need to do right now. The guide price
+              for what you asked for is below — and the amount is yours to
+              choose.
             </p>
           </div>
         </div>
 
         <div class="card ty-card">
-          <h2 class="ty-card-title">Your suggested contribution</h2>
+          <h2 class="ty-card-title">What this would cost</h2>
           <p class="ty-card-sub">
             Tick or untick to match what you asked for — nothing here is locked in.
           </p>
@@ -84,21 +84,20 @@ const extras = SUPPORT_TIERS.filter((tier) => !tier.base);
           </p>
 
           {
-            CONTRIBUTE_URL ? (
+            PAYMENT_URL ? (
               <>
                 <a
                   class="btn btn-primary ty-cta"
-                  href={CONTRIBUTE_URL}
+                  href={PAYMENT_URL}
                   target="_blank"
                   rel="noopener"
                 >
-                  Contribute
+                  Pay
                 </a>
                 <p class="ty-invoice-note">
                   No need to pay anything now — I will still receive and consider
-                  your request regardless of whether you have made a contribution.
-                  If you do make a contribution, you'll be provided with a tax
-                  invoice upon payment.
+                  your request regardless of whether you have paid. If you do
+                  pay, you'll be provided with a tax invoice upon payment.
                 </p>
               </>
             ) : (

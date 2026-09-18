@@ -45,7 +45,7 @@ export const ABOUT_PARAGRAPHS = [
   "I'm Emma — an award-winning pianist and songwriter, and a stay-at-home mum of three. I write personal dedications for people and the moments that matter. Living in the thick of family life is part of what I bring to songs about love, loss, celebration, and everyday devotion. At this stage, every Songtales song is written by me.",
 ] as const;
 
-export const SUPPORT_INTRO = 'No fixed price — contributions welcome. Suggested:';
+export const SUPPORT_INTRO = 'The amounts below are guides, not a price list:';
 
 export const SUPPORT_TIERS = [
   {
@@ -116,7 +116,7 @@ export const SUPPORT_GST_NOTE =
   'All amounts include GST. You’ll receive a tax invoice showing the GST.';
 
 export const SUPPORT_NOTES = [
-  'Tick extras on the request form to see a suggested total. A contribution isn’t required to submit — we’ll sort that out once I know what you’re after.',
-  'I prioritise by urgency first, then by contribution.',
-  'If I can’t fulfil in the agreed time, your contribution is refunded in full.',
+  'Tick extras on the request form to see a suggested total. You don’t need to pay anything to send a request — we’ll sort that out once I know what you’re after.',
+  'I prioritise by urgency first, then by the amount agreed.',
+  'If I can’t fulfil in the agreed time, your payment is refunded in full.',
 ] as const;

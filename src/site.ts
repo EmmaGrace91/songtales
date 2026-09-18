@@ -9,10 +9,10 @@ export const TALLY_FORM_URL = 'https://tally.so/r/rjejao';
 export const YOUTUBE_URL = 'https://www.youtube.com/@egracestephenson';
 
 /**
- * Where the "Contribute" button should point. While this is null the button is
- * hidden entirely — set it to a payment or contribution link to show it.
+ * Where the "Pay" button should point. While this is null the button is hidden
+ * entirely — set it to the Stripe payment link to show it.
  */
-export const CONTRIBUTE_URL: string | null = null;
+export const PAYMENT_URL: string | null = null;
 
 export const SITE = {
   name: 'Songtales',
@@ -30,7 +30,7 @@ export const NAV_LINKS = [
   { href: '#how-it-works', label: 'How it works' },
   { href: '#about', label: 'About' },
   { href: YOUTUBE_URL, label: 'See my work', external: true },
-  { href: '#support', label: 'Support the work' },
+  { href: '#support', label: 'What it costs' },
 ] as const;
 
 /**

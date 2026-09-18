@@ -1,5 +1,5 @@
 ---
-import { CONTRIBUTE_URL, SITE, TALLY_FORM_URL } from '../site';
+import { PAYMENT_URL, SITE, TALLY_FORM_URL } from '../site';
 ---
 
 <section class="cta-band" aria-labelledby="cta-heading">
@@ -12,9 +12,9 @@ import { CONTRIBUTE_URL, SITE, TALLY_FORM_URL } from '../site';
         Request a song
       </a>
       {
-        CONTRIBUTE_URL && (
-          <a class="btn btn-outline-on-wine" href={CONTRIBUTE_URL} target="_blank" rel="noopener">
-            Contribute
+        PAYMENT_URL && (
+          <a class="btn btn-outline-on-wine" href={PAYMENT_URL} target="_blank" rel="noopener">
+            Pay
           </a>
         )
       }

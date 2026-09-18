@@ -35,9 +35,9 @@ Almost everything you'd want to change lives in two files.
 
 - **`TALLY_FORM_URL`** — the request form every "Request a song" button points to.
   Change it here once and all four CTAs follow.
-- **`CONTRIBUTE_URL`** — currently `null`, which hides the Contribute button
-  entirely. Set it to a Square payment link and the button appears on both the
-  CTA band and `/thank-you`.
+- **`PAYMENT_URL`** — currently `null`, which hides the Pay button entirely.
+  Set it to the Stripe payment link and the button appears on both the CTA band
+  and `/thank-you`.
 - **`YOUTUBE_URL`** — where "See my work" points, from the nav and About.
 - **`IMAGES`** — the path to each photo (see below).
 - **`SITE`** — name, tagline, the "Never AI" line, footer line, meta description.
@@ -46,7 +46,12 @@ Almost everything you'd want to change lives in two files.
 ### `src/content.ts` — the words and the prices
 
 All the body copy: the idea, the occasion list, the three steps, the About
-paragraph, and the contribution tiers and notes.
+paragraph, and the price tiers and notes.
+
+Payment language is deliberately commercial — "you choose what you pay", not
+"contribution" or "donation". Stripe's content-creator rules prohibit donation
+framing for anything that isn't a registered charity, and the substance here is
+a commissioned service with flexible pricing, not a gift. Keep it that way.
 
 `SUPPORT_TIERS` holds the prices as **numbers**, and both the landing page and
 the `/thank-you` calculator derive their figures from it — change an amount once
@@ -57,7 +62,7 @@ under s48 of the Australian Consumer Law; GST is computed as 1/11th.
 
 Set the request form's "redirect on completion" to
 `https://songtales.emmastephensonmusic.com/thank-you`. The page itemises the
-suggested contribution and totals it, and pre-ticks extras from the query
+guide price and totals it, and pre-ticks extras from the query
 string. Two formats are accepted:
 
 ```
