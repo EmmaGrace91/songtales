@@ -21,7 +21,7 @@ export const OCCASIONS = [
   '“Just because” — no occasion required',
 ] as const;
 
-export const IDEA_CLOSE = 'Secular or Christian, whatever fits the story.';
+export const IDEA_CLOSE = 'Nonreligious or Christian, whatever fits the story.';
 
 export const STEPS = [
   {

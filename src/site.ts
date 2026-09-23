@@ -8,6 +8,10 @@ export const TALLY_FORM_URL = 'https://tally.so/r/rjejao';
 /** Where "See my work" points. */
 export const YOUTUBE_URL = 'https://www.youtube.com/@egracestephenson';
 
+/** Example songs, linked from "Humorous" and "heartfelt". */
+export const HUMOROUS_EXAMPLE_URL = 'https://youtu.be/iz_5g5-LHMM';
+export const HEARTFELT_EXAMPLE_URL = 'https://youtu.be/zJShLYJDlRM';
+
 /**
  * Where the "Pay" button should point. While this is null the button is hidden
  * entirely — set it to the Stripe payment link to show it.

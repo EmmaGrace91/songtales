@@ -1,5 +1,6 @@
 ---
 import { IDEA_CLOSE, IDEA_INTRO, IDEA_LIST_LEAD, OCCASIONS } from '../content';
+import { HEARTFELT_EXAMPLE_URL, HUMOROUS_EXAMPLE_URL } from '../site';
 ---
 
 <section class="section" id="the-idea" aria-labelledby="idea-heading">
@@ -18,7 +19,16 @@ import { IDEA_CLOSE, IDEA_INTRO, IDEA_LIST_LEAD, OCCASIONS } from '../content';
       </ul>
     </div>
 
-    <p class="idea-close">{IDEA_CLOSE}</p>
+    <div class="idea-close">
+      <p>{IDEA_CLOSE}</p>
+      <p>
+        <a class="idea-example" href={HUMOROUS_EXAMPLE_URL} target="_blank" rel="noopener">
+          Humorous<span class="visually-hidden"> — hear a funny example on YouTube</span></a>,{' '}
+        <a class="idea-example" href={HEARTFELT_EXAMPLE_URL} target="_blank" rel="noopener">
+          heartfelt<span class="visually-hidden"> — hear a heartfelt example on YouTube</span></a>,
+        or both.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -57,6 +67,27 @@ import { IDEA_CLOSE, IDEA_INTRO, IDEA_LIST_LEAD, OCCASIONS } from '../content';
     font-family: var(--serif);
     font-size: clamp(1.15rem, 2.2vw, 1.4rem);
     color: var(--wine);
+  }
+
+  .idea-close p {
+    margin: 0;
+  }
+
+  .idea-close p + p {
+    margin-top: 0.35rem;
+  }
+
+  /* The link sits in wine text, so it needs an underline to read as a link. */
+  .idea-example {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  .idea-example:hover {
+    color: var(--wine-dark);
+    text-decoration-thickness: 2px;
   }
 
   @media (max-width: 800px) {
