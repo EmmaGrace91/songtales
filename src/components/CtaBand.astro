@@ -1,5 +1,5 @@
 ---
-import { PAYMENT_URL, SITE, TALLY_FORM_URL } from '../site';
+import { SITE, TALLY_FORM_URL } from '../site';
 ---
 
 <section class="cta-band" aria-labelledby="cta-heading">
@@ -11,13 +11,6 @@ import { PAYMENT_URL, SITE, TALLY_FORM_URL } from '../site';
       <a class="btn btn-on-wine" href={TALLY_FORM_URL} target="_blank" rel="noopener">
         Request a song
       </a>
-      {
-        PAYMENT_URL && (
-          <a class="btn btn-outline-on-wine" href={PAYMENT_URL} target="_blank" rel="noopener">
-            Pay
-          </a>
-        )
-      }
     </div>
   </div>
 </section>
@@ -47,9 +40,6 @@ import { PAYMENT_URL, SITE, TALLY_FORM_URL } from '../site';
 
   .cta-actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
     justify-content: center;
-    align-items: center;
   }
 </style>

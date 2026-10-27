@@ -177,18 +177,6 @@ a:hover {
   color: var(--wine-dark);
 }
 
-.btn-outline-on-wine {
-  background: transparent;
-  color: #fffdf9;
-  border-color: rgba(255, 253, 249, 0.5);
-}
-
-.btn-outline-on-wine:hover {
-  color: #fffdf9;
-  border-color: #fffdf9;
-  background: rgba(255, 253, 249, 0.1);
-}
-
 .btn-sm {
   padding: 0.55rem 1.1rem;
   font-size: 0.9375rem;
