@@ -1,0 +1,76 @@
+---
+import { IMAGES, VIDEO } from '../site';
+---
+
+<section class="section listen" id="listen" aria-labelledby="listen-heading">
+  <div class="shell listen-inner">
+    <p class="eyebrow">Hear one</p>
+    <h2 class="section-title" id="listen-heading">A whole song, start to finish.</h2>
+    <p class="listen-sub">
+      Piano and voice, recorded at home — the way most Songtales arrive.
+    </p>
+
+    <figure class="listen-figure">
+      <video
+        controls
+        preload="metadata"
+        playsinline
+        poster={IMAGES.palomaPoster}
+        width="1280"
+        height="720"
+        aria-label="Paloma, Oh My — live at home, piano and voice"
+      >
+        <source src={VIDEO.paloma} type="video/mp4" />
+        <p>
+          Your browser can’t play this video.
+          <a href={VIDEO.paloma}>Download it instead</a>.
+        </p>
+      </video>
+      <figcaption>Paloma, Oh My · Live at Home</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .listen-inner {
+    max-width: 52rem;
+    text-align: center;
+  }
+
+  .listen .section-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .listen-sub {
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+  }
+
+  .listen-figure {
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--ink);
+    box-shadow: var(--shadow);
+  }
+
+  .listen-figure video {
+    /* Reserve the space before the poster loads so nothing jumps. */
+    aspect-ratio: 16 / 9;
+  }
+
+  .listen-figure figcaption {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+    background: var(--card);
+    border-top: 1px solid var(--line);
+  }
+
+  .listen-figure video {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>

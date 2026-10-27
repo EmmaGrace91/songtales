@@ -51,6 +51,16 @@ export const IMAGES = {
   aboutLife: '/images/about-family.jpg',
   /** Circular piano + quill emblem. */
   logo: '/images/logo.jpg',
+  /** Still frame used as the poster for the example song. */
+  palomaPoster: '/images/paloma-poster.jpg',
+} as const;
+
+/**
+ * Self-hosted so the page stays free of third-party players and trackers.
+ * A native <video> with a poster is already click-to-play and needs no JS.
+ */
+export const VIDEO = {
+  paloma: '/video/paloma-oh-my.mp4',
 } as const;
 
 export const IMAGE_ALT = {
